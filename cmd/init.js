@@ -9,19 +9,23 @@ hamCallApp.use(bodyParser.json());
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 
+require("dotenv").config();
+
 // intialize gorm orm
 const { Sequelize, Op, literal, QueryTypes } = require("sequelize");
-const gorm = new Sequelize({
-  host: "localhost",
+// const gorm = new Sequelize({
+//   host: process.env.HOST,
+//   username: process.env.USERNAME,
+//   database: process.env.DATABASE,
+//   password: process.env.PASSWORD,
+//   port: 5432,
+//   dialect: "postgres",
+//   logging: true,
+// });
+
+const gorm = new Sequelize(process.env.POSTGRES_CONN, {
   dialect: "postgres",
-  username: "srinukesari",
-  database: "hamcall",
-  password: "3950",
-  port: 5432,
-  logging: true,
 });
-// Enable Sequelize logging
-gorm.options.logging = console.log;
 
 module.exports = {
   hamCallApp,
