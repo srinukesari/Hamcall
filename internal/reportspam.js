@@ -1,15 +1,12 @@
 const { GlobalHamUsers, ContactBook } = require("../models/dbmodels");
 const { Op } = require("../cmd/init");
 async function reportSpam(req, res) {
-  console.log("enters comes here1111------");
   const { spamnumber, spammername } = req.body;
 
-  console.log("enters comes here------");
   if (!spamnumber) {
     return res.status(400).json({ message: "spam number can't be empty" });
   }
 
-  console.log("comes here------");
   const record = await GlobalHamUsers.findOne({
     where: {
       phonenumber: spamnumber,

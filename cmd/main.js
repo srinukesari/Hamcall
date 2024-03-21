@@ -1,5 +1,3 @@
-// Define a route
-
 const { hamCallApp } = require("./init");
 const login = require("../auth/login");
 const register = require("../auth/register");
