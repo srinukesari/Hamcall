@@ -9,6 +9,8 @@ hamCallApp.use(bodyParser.json());
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
 
+const pg = require("pg");
+
 require("dotenv").config();
 
 // intialize gorm orm
