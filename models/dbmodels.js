@@ -1,21 +1,22 @@
 const { DataTypes } = require("sequelize");
 const { gorm } = require("../cmd/init");
+const { C, Model } = require("../contants");
 
-const ContactBook = gorm.define("contactbooks", {
+const ContactBook = gorm.define(Model.ContactBooks, {
   phonenumber: {
     type: DataTypes.STRING,
     allowNull: false,
     references: {
-      model: "globalhamusers",
-      key: "phonenumber",
+      model: Model.GlobalHamUsers,
+      key: C.PhoneNumber,
     },
   },
   contactbookowner: {
     type: DataTypes.STRING,
     allowNull: false,
     references: {
-      model: "registeredhamusers",
-      key: "phonenumber",
+      model: Model.RegisteredHamUsers,
+      key: C.PhoneNumber,
     },
   },
   name: {
@@ -25,7 +26,7 @@ const ContactBook = gorm.define("contactbooks", {
   },
 });
 
-const RegisteredHamUsers = gorm.define("registeredhamusers", {
+const RegisteredHamUsers = gorm.define(Model.RegisteredHamUsers, {
   phonenumber: {
     type: DataTypes.STRING,
     allowNull: false,
@@ -56,7 +57,7 @@ const RegisteredHamUsers = gorm.define("registeredhamusers", {
   },
 });
 
-const GlobalHamUsers = gorm.define("globalhamusers", {
+const GlobalHamUsers = gorm.define(Model.GlobalHamUsers, {
   phonenumber: {
     type: DataTypes.STRING,
     allowNull: false,
@@ -70,25 +71,25 @@ const GlobalHamUsers = gorm.define("globalhamusers", {
 });
 
 GlobalHamUsers.hasMany(ContactBook, {
-  foreignKey: "id",
+  foreignKey: C.Id,
   constraints: false,
 });
 ContactBook.belongsTo(GlobalHamUsers, {
-  foreignKey: "id",
+  foreignKey: C.Id,
   constraints: false,
 });
 
 RegisteredHamUsers.hasMany(ContactBook, {
-  foreignKey: "id",
+  foreignKey: C.Id,
   constraints: false,
 });
 ContactBook.belongsTo(RegisteredHamUsers, {
-  foreignKey: "id",
+  foreignKey: C.Id,
   constraints: false,
 });
 
 RegisteredHamUsers.hasOne(GlobalHamUsers, {
-  foreignKey: "id",
+  foreignKey: C.Id,
   constraints: false,
 });
 
