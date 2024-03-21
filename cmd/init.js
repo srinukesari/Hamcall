@@ -24,7 +24,8 @@ const { Sequelize, Op, literal, QueryTypes } = require("sequelize");
 // });
 
 const gorm = new Sequelize(process.env.POSTGRES_CONN, {
-  dialect: "postgres",
+  // dialect: "postgres",
+  dialectModule: pg,
 });
 
 module.exports = {
