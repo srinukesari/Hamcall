@@ -90,6 +90,4 @@ async function search(req, res) {
   }
 }
 
-module.exports = {
-  search,
-};
+module.exports = search;

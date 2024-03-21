@@ -19,6 +19,4 @@ async function syncContacts(req, res) {
   }
 }
 
-module.exports = {
-  syncContacts,
-};
+module.exports = syncContacts;
