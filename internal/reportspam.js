@@ -3,6 +3,10 @@ const { Op } = require("../cmd/init");
 async function reportSpam(req, res) {
   const { spamnumber, spammername } = req.body;
 
+  if (!spamnumber) {
+    return res.status(400).json({ message: "spam number can't be empty" });
+  }
+
   const record = await GlobalHamUsers.findOne({
     where: {
       phonenumber: spamnumber,
@@ -12,7 +16,7 @@ async function reportSpam(req, res) {
   if (record) {
     record.is_spam = true;
     await record.save();
-    res.json({ message: "Spammer Updated successfully" });
+    res.status(200).json({ message: "Spammer Updated successfully" });
   } else {
     await GlobalHamUsers.create({
       phonenumber: spamnumber,
@@ -21,12 +25,10 @@ async function reportSpam(req, res) {
     await ContactBook.create({
       contactbookowner: "33333",
       phonenumber: spamnumber,
-      name: spammername,
+      name: spammername ? spammername : "",
     });
-    res.json({ message: "Spammer Added successfully" });
+    res.status(200).json({ message: "Spammer Added successfully" });
   }
 }
 
-module.exports = {
-  reportSpam,
-};
+module.exports = reportSpam;
