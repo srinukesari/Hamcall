@@ -6,7 +6,6 @@ const {
 const { bcrypt, jwt } = require("../cmd/init");
 
 async function login(req, res) {
-  const { secretKey } = require("./contants");
   const { phonenumber, password } = req.body;
 
   const user = await RegisteredHamUsers.findOne({
@@ -20,9 +19,11 @@ async function login(req, res) {
 
     if (isPasswordValid) {
       // Generate JWT token
-      const jwtToken = jwt.sign({ userId: phonenumber }, secretKey, {
-        expiresIn: "1h",
-      }); // Token expires in 1 hour
+      const jwtToken = jwt.sign(
+        { userId: phonenumber },
+        process.env.SECRET_KEY,
+        { expiresIn: process.env.JWT_EXPIRATION_TIME } // Token expires in 3 hour
+      );
 
       // Return token to the client
       res.json({ jwtToken });
@@ -58,8 +59,6 @@ async function register(req, res) {
         contactbookowner: phonenumber,
       },
     });
-
-    console.log("new user create ->>>>>");
 
     res.json({ message: "User registered successfully" });
   } catch (error) {

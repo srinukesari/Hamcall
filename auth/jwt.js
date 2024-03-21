@@ -1,5 +1,4 @@
 // Middleware to verify JWT token
-const { secretKey } = require("./contants");
 const { jwt } = require("../cmd/init");
 
 function verifyToken(req, res, next) {
@@ -10,7 +9,7 @@ function verifyToken(req, res, next) {
     return res.status(401).json({ message: "Unauthorized" });
   }
 
-  jwt.verify(token, secretKey, (err, decoded) => {
+  jwt.verify(token, process.env.SECRET_KEY, (err, decoded) => {
     if (err) {
       return res.status(401).json({ message: "Invalid token" });
     }

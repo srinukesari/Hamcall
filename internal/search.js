@@ -14,10 +14,10 @@ async function search(req, res) {
 
   if (name) {
     await ContactBook.findAll({
-      attributes: ["phonenumber", "name"],
+      attributes: [C.PhoneNumber, C.Name],
       include: {
         model: GlobalHamUsers,
-        attributes: ["is_spam"],
+        attributes: [C.IsSpam],
         on: {
           "$contactbooks.phonenumber$": {
             [Op.eq]: gorm.col("globalhamuser.phonenumber"),
@@ -47,11 +47,11 @@ async function search(req, res) {
     });
     const record = await RegisteredHamUsers.findOne({
       attributes: userExitsInSearchPersonContactBook
-        ? ["phonenumber", "username", "email"]
-        : ["phonenumber", "username"],
+        ? [C.PhoneNumber, C.UserName, C.Email]
+        : [C.PhoneNumber, C.UserName],
       include: {
         model: GlobalHamUsers,
-        attributes: ["is_spam"],
+        attributes: [C.IsSpam],
         on: {
           "$registeredhamusers.phonenumber$": {
             [Op.eq]: gorm.col("globalhamuser.phonenumber"),
@@ -66,10 +66,10 @@ async function search(req, res) {
       res.json({ searchresult: record });
     } else {
       await ContactBook.findAll({
-        attributes: ["phonenumber", "name"],
+        attributes: [C.PhoneNumber, C.Name],
         include: {
           model: GlobalHamUsers,
-          attributes: ["is_spam"],
+          attributes: [C.IsSpam],
           on: {
             "$contactbooks.phonenumber$": {
               [Op.eq]: gorm.col("globalhamuser.phonenumber"),
