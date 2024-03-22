@@ -1,10 +1,8 @@
-// tests/login.test.js
-
 const request = require("supertest");
 const sinon = require("sinon");
-const { hamCallApp } = require("../cmd/main"); // Assuming your Express app is exported from app.js
+const { hamCallApp } = require("../../cmd/main");
 
-const { RegisteredHamUsers } = require("../models/dbmodels");
+const { RegisteredHamUsers } = require("../../models/dbmodels");
 
 describe("HamCallApp Login API /login", () => {
   const findOneStubLogin = sinon.stub(RegisteredHamUsers, "findOne");

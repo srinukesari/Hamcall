@@ -13,8 +13,6 @@ async function reportSpam(req, res) {
     },
   });
 
-  console.log("check here", record);
-
   if (record) {
     record.is_spam = true;
     await record.save();

@@ -1,12 +1,12 @@
 const request = require("supertest");
 const sinon = require("sinon");
-const { hamCallApp } = require("../cmd/main"); // Assuming your Express app is exported from app.js
+const { hamCallApp } = require("../../cmd/main");
 
 const {
   RegisteredHamUsers,
   GlobalHamUsers,
   ContactBook,
-} = require("../models/dbmodels");
+} = require("../../models/dbmodels");
 
 describe("HamCallApp Register API /register", () => {
   const createStubforRegister = sinon.stub(RegisteredHamUsers, "findOrCreate");
@@ -18,10 +18,10 @@ describe("HamCallApp Register API /register", () => {
   });
 
   const contactBookStubforRegister = sinon.stub(ContactBook, "findOrCreate");
-  globalStubforRegister.resolves({
+  contactBookStubforRegister.resolves({
     phonenumber: "9898989898",
-    username: "kesari",
-    is_spam: false,
+    name: "kesari",
+    contactbookowner: "9898989898",
   });
 
   test("user registration successfull", async () => {
@@ -64,6 +64,18 @@ describe("HamCallApp Register API /register", () => {
     });
 
     expect(response.status).toBe(401);
+    createStubforRegister.restore();
+  });
+
+  test("invalid creds for registeration", async () => {
+    const response = await request(hamCallApp).post("/register").send({
+      phonenumber: "",
+      password: "pass",
+      username: "",
+      email: "kesari@gmail.com",
+    });
+
+    expect(response.status).toBe(400);
     createStubforRegister.restore();
   });
 });

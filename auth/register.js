@@ -8,6 +8,12 @@ const { bcrypt } = require("../cmd/init");
 async function register(req, res) {
   const { username, phonenumber, email, password } = req.body;
 
+  if (!username || !phonenumber || !password) {
+    return res
+      .status(400)
+      .json({ message: "phonenumber/password/username can't be empty" });
+  }
+
   try {
     const hashPassword = await bcrypt.hash(password, 10);
 
