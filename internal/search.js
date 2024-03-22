@@ -9,7 +9,7 @@ async function search(req, res) {
   const { name, phonenumber } = req.query;
 
   if (!name && !phonenumber) {
-    res.status(400).json({ message: "query can't be empty" });
+    return res.status(400).json({ message: "query can't be empty" });
   }
 
   if (name) {
@@ -33,10 +33,12 @@ async function search(req, res) {
       order: literal("CASE WHEN name LIKE '" + name + "%' THEN 0 ELSE 1 END"),
     })
       .then((record) => {
-        res.json({ searchresult: record });
+        return res.status(200).json({ searchresult: record });
       })
       .catch((error) => {
-        res.status(400).json({ message: "error in search query", error });
+        return res
+          .status(400)
+          .json({ message: "error in search query", error });
       });
   } else {
     const userExitsInSearchPersonContactBook = await ContactBook.findOne({
@@ -63,7 +65,7 @@ async function search(req, res) {
       },
     });
     if (record) {
-      res.json({ searchresult: record });
+      return res.json({ searchresult: record });
     } else {
       await ContactBook.findAll({
         attributes: [C.PhoneNumber, C.Name],
@@ -81,10 +83,12 @@ async function search(req, res) {
         },
       })
         .then((record) => {
-          res.json({ searchresult: record });
+          return res.json({ searchresult: record });
         })
         .catch((error) => {
-          res.status(400).json({ message: "error in search query", error });
+          return res
+            .status(400)
+            .json({ message: "error in search query", error });
         });
     }
   }

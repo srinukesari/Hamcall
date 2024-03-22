@@ -2,11 +2,7 @@ const request = require("supertest");
 const sinon = require("sinon");
 const { hamCallApp } = require("../../cmd/main");
 
-const {
-  RegisteredHamUsers,
-  GlobalHamUsers,
-  ContactBook,
-} = require("../../models/dbmodels");
+const { GlobalHamUsers, ContactBook } = require("../../models/dbmodels");
 
 describe("HamCallApp ReportSpam API /report-spam", () => {
   const findOneStubReportSpam = sinon.stub(GlobalHamUsers, "findOne");
