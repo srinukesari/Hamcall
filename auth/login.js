@@ -24,7 +24,7 @@ async function login(req, res) {
       const jwtToken = jwt.sign(
         { userId: phonenumber },
         process.env.SECRET_KEY,
-        { expiresIn: process.env.JWT_EXPIRATION_TIME } // Token expires in 3 hour
+        { expiresIn: "3h" } // Token expires in 3 hour
       );
 
       // Return token to the client
