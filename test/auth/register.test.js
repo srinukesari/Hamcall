@@ -28,7 +28,7 @@ describe("HamCallApp Register API /register", () => {
     createStubforRegister.resolves([
       {
         phonenumber: "9898989898",
-        password: "pass",
+        password: "Pass@123",
         username: "kesari",
         email: "kesari@gmail.com",
       },
@@ -36,7 +36,7 @@ describe("HamCallApp Register API /register", () => {
     ]);
     const response = await request(hamCallApp).post("/register").send({
       phonenumber: "9898989898",
-      password: "pass",
+      password: "Pass@123",
       username: "kesari",
       email: "kesari@gmail.com",
     });
@@ -50,7 +50,7 @@ describe("HamCallApp Register API /register", () => {
     createStubforRegister.resolves([
       {
         phonenumber: "9898989898",
-        password: "pass",
+        password: "Pass@123",
         username: "kesari",
         email: "kesari@gmail.com",
       },
@@ -58,7 +58,7 @@ describe("HamCallApp Register API /register", () => {
     ]);
     const response = await request(hamCallApp).post("/register").send({
       phonenumber: "9898989898",
-      password: "pass",
+      password: "Pass@123",
       username: "kesari",
       email: "kesari@gmail.com",
     });

@@ -4,14 +4,34 @@ const {
   ContactBook,
 } = require("../models/dbmodels");
 const { bcrypt } = require("../cmd/init");
+const {
+  validateEmail,
+  validatePhoneNumber,
+  validatePassword,
+} = require("../validation/validate");
 
 async function register(req, res) {
   const { username, phonenumber, email, password } = req.body;
+
+  if (email && !validateEmail(email)) {
+    return res.status(400).json({ message: "Invalid email-id" });
+  }
 
   if (!username || !phonenumber || !password) {
     return res
       .status(400)
       .json({ message: "phonenumber/password/username can't be empty" });
+  }
+
+  if (!validatePhoneNumber(phonenumber)) {
+    return res.status(400).json({ message: "Invalid phonenumber" });
+  }
+
+  if (!validatePassword(password)) {
+    return res.status(400).json({
+      message:
+        "password is weak, make sure your password contains atleast one Uppercase, one Lowercase, one Number and one specail char",
+    });
   }
 
   try {

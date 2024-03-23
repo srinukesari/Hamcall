@@ -4,7 +4,7 @@ const {
   RegisteredHamUsers,
 } = require("../models/dbmodels");
 const { gorm, Op, literal } = require("../cmd/init");
-const { C, Model } = require("../contants");
+const { C } = require("../contants");
 
 async function search(req, res) {
   const { name, phonenumber } = req.query;
