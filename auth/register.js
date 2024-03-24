@@ -37,7 +37,7 @@ async function register(req, res) {
   try {
     const hashPassword = await bcrypt.hash(password, 10);
 
-    // Create a new user in the database
+    // Create a new user in the database if not exists
     const [user, created] = await RegisteredHamUsers.findOrCreate({
       where: { phonenumber },
       defaults: { username, password: hashPassword, email },
@@ -64,7 +64,7 @@ async function register(req, res) {
       res.status(401).json({ message: "User already exits" });
     }
   } catch (error) {
-    // Handle registration errors (e.g., phonenumber already exists)
+    // Handle registration errors
     res
       .status(400)
       .json({ message: "Registration failed", error: error.message });

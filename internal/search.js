@@ -14,9 +14,9 @@ async function search(req, res) {
   }
 
   if (name) {
-    searchByName(res, name);
+    searchByName(res, name); // Search contacts by Name
   } else if (phonenumber) {
-    searchByPhoneNumber(req, res, phonenumber);
+    searchByPhoneNumber(req, res, phonenumber); // Search contacts by PhoneNumber
   }
 }
 
@@ -49,7 +49,6 @@ async function searchByName(res, name) {
 }
 
 async function searchByPhoneNumber(req, res, phonenumber) {
-  console.log("check here,,", phonenumber, req.userId);
   const userExitsInSearchPersonContactBook = await ContactBook.findOne({
     where: {
       phonenumber: req.userId,

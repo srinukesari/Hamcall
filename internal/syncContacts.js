@@ -1,6 +1,6 @@
 const { GlobalHamUsers, ContactBook } = require("../models/dbmodels");
-const { Op } = require("../cmd/init");
 
+// External api just to update db with some contacts if needed
 async function syncContacts(req, res) {
   var { contacts } = req.body;
   const contactOwner = { contactbookowner: req.userId };

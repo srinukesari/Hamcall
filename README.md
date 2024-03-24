@@ -23,6 +23,10 @@ no need to create db tables before hand, on server startup it will check the db 
 
 for writing test case and mocking db calls I used jest and sinon
 
+for running test cases, make sure to set your NODE_ENV varibale to "test" and 
+go to root directory of the project and 
+run "npm test"
+
 Thanks for reading.
 Happy Coding...
 

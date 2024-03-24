@@ -2,6 +2,7 @@
 const { jwt } = require("../cmd/init");
 
 function verifyToken(req, res, next) {
+  //for running testing cases make sure NODE_ENV set to "test"
   if (process.env.NODE_ENV === "test") {
     req.userId = "9898989898";
     return next();

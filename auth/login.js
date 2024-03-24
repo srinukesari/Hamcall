@@ -28,11 +28,12 @@ async function login(req, res) {
       );
 
       // Return token to the client
-      res.json({ jwtToken });
+      return res.json({ jwtToken });
     } else {
-      res.status(401).json({ message: "Invalid password" });
+      return res.status(401).json({ message: "Incorrect password" });
     }
   } else {
+    //can't find a user with this phonenumber
     return res.status(401).json({ message: "Invalid PhoneNumber" });
   }
 }

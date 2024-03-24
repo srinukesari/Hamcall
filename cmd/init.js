@@ -8,23 +8,13 @@ hamCallApp.use(bodyParser.json());
 
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
-
 const pg = require("pg");
 
 require("dotenv").config();
 
-// intialize gorm orm
-const { Sequelize, Op, literal, QueryTypes } = require("sequelize");
-// const gorm = new Sequelize({
-//   host: process.env.HOST,
-//   username: process.env.USERNAME,
-//   database: process.env.DATABASE,
-//   password: process.env.PASSWORD,
-//   port: 5432,
-//   dialect: "postgres",
-//   logging: true,
-// });
+const { Sequelize, Op, literal } = require("sequelize");
 
+// intialize gorm orm
 const gorm = new Sequelize(process.env.POSTGRES_CONN, {
   dialectModule: pg,
 });
@@ -36,5 +26,4 @@ module.exports = {
   jwt,
   Op,
   literal,
-  QueryTypes,
 };
